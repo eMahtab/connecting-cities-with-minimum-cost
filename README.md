@@ -105,4 +105,5 @@ class Solution {
 ```
 
 # References :
-https://www.youtube.com/watch?v=Vw-sktU1zmc ( Hindi, very good explanation)
+1. Prim's Algorithm : https://www.youtube.com/watch?v=Vw-sktU1zmc (Hindi, very good explanation)
+2. Kruskal's Algorithm : https://www.youtube.com/watch?v=YU3Bvek4wjs (Hindi, very good explanation)
