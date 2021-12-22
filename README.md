@@ -51,20 +51,13 @@ class Solution {
     }
 }
 ```
-# Implementation 2 : Minimum Spanning Tree (Kruskal's Algorithm)
+# Implementation 2 : Minimum Spanning Tree (Kruskal's Algorithm using Union Find)
 ```java
 class Solution {
-    class Edge {
-        int v1, v2, cost;
-        Edge(int v1, int v2, int cost){
-            this.v1 = v1;
-            this.v2 = v2;
-            this.cost = cost;
-        }
-    }
+    
     public int minimumCost(int n, int[][] connections) {
         int minCost = 0;
-        int count = 0;
+        int edgesConnected = 0;
         Arrays.sort(connections, (e1, e2) -> e1[2] - e2[2]);
         int[] parents = new int[n];
         int[] rank = new int[n];
@@ -77,12 +70,11 @@ class Solution {
             boolean flag = union(connection[0] - 1, connection[1] - 1, parents, rank);
             if(flag) {
                 minCost += connection[2];
-                count++;
-            }
-                
+                edgesConnected++;
+            }        
         }
         
-        return count == n - 1 ? minCost : -1;
+        return edgesConnected == n - 1 ? minCost : -1;
     }
     
     private boolean union(int v1, int v2, int[] parents, int[] rank) {
