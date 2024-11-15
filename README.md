@@ -59,6 +59,38 @@ class Solution {
     }
 }
 ```
+
+# Implementation 1a : Without creating Edge, a little more succinct code
+```java
+class Solution {
+    public int minimumCost(int n, int[][] connections) {
+        Map<Integer,List<int[]>> graph = new HashMap<>();
+        for(int i= 0; i < n; i++)
+            graph.put(i, new ArrayList<>());
+        for(int[] connection : connections) {
+            int u = connection[0]-1, v = connection[1]-1, cost = connection[2];
+            graph.get(u).add(new int[]{v, cost});
+            graph.get(v).add(new int[]{u, cost});
+        }
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((n1, n2) -> n1[1] - n2[1]);
+        pq.add(new int[]{0, 0});
+        int minCost = 0;
+        Set<Integer> visited = new HashSet<>();
+        while(!pq.isEmpty()) {
+            int[] node = pq.remove();
+            if(visited.contains(node[0])) continue;
+            minCost += node[1];
+            visited.add(node[0]);
+            for(int[] neighbor : graph.get(node[0])) {
+                if(!visited.contains(neighbor[0]))
+                   pq.add(neighbor);
+            }
+        }
+        return visited.size() == n ? minCost : -1;
+    }
+}
+```
 # Implementation 2 : Minimum Spanning Tree (Kruskal's Algorithm using Union Find)
 ```java
 class Solution {
